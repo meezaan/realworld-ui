@@ -4,8 +4,8 @@ on:
     tags:
       - "*"
 jobs:
-  build:
-    name: Build
+  build-test-and-push-docker-container:
+    name: Test, productionise, build container and push to Docker Hub
     runs-on: ubuntu-latest
     env:
       CI: true
@@ -24,8 +24,9 @@ jobs:
 
       - name: Initialize
         run: npm install && npm ci
-
-      - name: Build
+      - name: Test
+        run: npm run test -- --coverage
+      - name: Production Build
         run: npm run build
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
