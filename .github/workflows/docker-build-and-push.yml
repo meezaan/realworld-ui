@@ -15,7 +15,7 @@ jobs:
         node-version: [ 16.x ]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -24,8 +24,6 @@ jobs:
         run: npm install && npm ci
       - name: Test
         run: npm run test -- --coverage
-      - name: Production Build
-        run: npm run build
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -36,9 +34,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           push: true
+          context: .
           tags: |
             meezaan/realworld-ui:latest
             meezaan/realworld-ui:${{ github.ref_name }}
