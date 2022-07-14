@@ -1,7 +1,5 @@
-FROM node:16-alpine3.12
+FROM nginx:1.23
 
-WORKDIR /app
 
-COPY . /app/
+COPY build /usr/share/nginx/html
 
-RUN npm ci && npm run build
