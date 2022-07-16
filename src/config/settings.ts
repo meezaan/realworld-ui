@@ -1,3 +1,3 @@
 export default {
-  baseApiUrl: 'https://api.realworld.io/api/',
+  baseApiUrl: 'https://realworld-api.tt.meezaan.net/api/',
 };
